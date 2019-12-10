@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 9023,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 27149,
+  "expoServerNgrokUrl": "https://57-mjg.christopherpottesc.app.exp.direct",
+  "packagerNgrokUrl": "https://packager.57-mjg.christopherpottesc.app.exp.direct",
+  "ngrokPid": 27184
 }

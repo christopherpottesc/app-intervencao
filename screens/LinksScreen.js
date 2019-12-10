@@ -14,24 +14,20 @@ export default class LinksScreen extends Component {
   state = {
     data: "",
     id: "",
-    street: "",
-    contact_phone: "",
-    contact_name: "",
-    city: "",
-    number: "",
-    neighborhood: "",
-    deadline: "",
+    description: "",
     start_date: "",
-    activity: ""
+    end_date: "",
+    status: "",
+    category: ""
   };
 
   componentDidMount() {
-    fetch("http:/192.168.0.173:3000/api/v1/demands")
+    fetch("https://young-forest-65938.herokuapp.com/api/v1/demands")
       // fetch("http://10.0.2.2/api/v1/customers")
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          data: responseJson
+          data: responseJson.data
         });
       })
       .catch(error => console.log(error)); //to catch the errors if any
@@ -53,35 +49,13 @@ export default class LinksScreen extends Component {
           <FlatList
             data={this.state.data}
             renderItem={({ item, index, separators }) => (
-              <TouchableHighlight
-                // onPress={(item) =>navigate('Settings', {item})}
-                onPress={() =>
-                  navigate("Settings", {
-                    id: item.id,
-                    activity: item.activity,
-                    street: item.street,
-                    contact_phone: item.contact_phone,
-                    contact_name: item.contact_name,
-                    city: item.city,
-                    number: item.number,
-                    neighborhood: item.neighborhood,
-                    deadline: item.deadline,
-                    start_date: item.start_date
-                  })
-                }
-                onShowUnderlay={separators.highlight}
-                onHideUnderlay={separators.unhighlight}
-              >
-                <View style={{ backgroundColor: "white" }}>
-                  <Text>
-                    Id: {item.id}, Descrição: {item.activity}, Nome:{" "}
-                    {item.contact_name}, Telefone: {item.contact_phone}
-                    Cidade: {item.city}, Bairro: {item.neighborhood}, Rua:{" "}
-                    {item.street}, Número: {item.number}, Prazo: {item.deadline}
-                    , Data de abertura: {item.start_date}
-                  </Text>
-                </View>
-              </TouchableHighlight>
+              <View style={{ backgroundColor: "white" }}>
+                <Text>
+                  Id: {item.id}, Descrição: {item.description}, Catergoria:{" "}
+                  {item.category}, Data de início: {item.start_date}, Data de
+                  entrega: {item.end_date}, Status: {item.status}
+                </Text>
+              </View>
             )}
           />
         </View>

@@ -1,28 +1,26 @@
 import React, { Component } from "react";
-import {
-  Button,
-  Linking,
-  ScrollView,
-  StyleSheet,
-  FlatList,
-  View,
-  Text,
-  TouchableHighlight
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { StyleSheet, FlatList, View, Text, ScrollView } from "react-native";
 
 export default class SettingsScreen extends Component {
   state = {
-    data: ""
+    data: "",
+    id: "",
+    nome: ""
+  };
+
+  state = {
+    data: "",
+    id: "",
+    nome: ""
   };
 
   componentDidMount() {
-    fetch("http:/192.168.0.173:3000/api/v1/customers/1")
+    fetch("https://young-forest-65938.herokuapp.com/api/v1/customers/1")
       // fetch("http://10.0.2.2/api/v1/customers")
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          data: responseJson
+          data: responseJson.data
         });
       })
       .catch(error => console.log(error)); //to catch the errors if any
@@ -31,38 +29,26 @@ export default class SettingsScreen extends Component {
   }
 
   render() {
-    return (
-      <View>
-        <View style={{ paddingHorizontal: 5 }}>
-          <FlatList
-            data={this.state.data}
-            renderItem={({ item, index, separators }) => (
-              <View style={{ backgroundColor: "white" }}>
-                <Text>Id: {item.id}</Text>
-              </View>
-            )}
-          />
-        </View>
+    const { navigate } = this.props.navigation;
 
-        <Text
-          style={{ marginTop: 30 }}
-          onPress={() =>
-            Linking.canOpenURL("whatsapp://send?text=oi").then(supported => {
-              if (supported) {
-                return Linking.openURL(
-                  `whatsapp://send?phone=5553${contact_phone}&text=${this.state.msg}`
-                );
-              } else {
-                return Linking.openURL(
-                  `https://api.whatsapp.com/send?phone=5553${contact_phone}&text=${this.state.msg}`
-                );
-              }
-            })
-          }
-        >
-          Agendar
-        </Text>
-      </View>
+    return (
+      <ScrollView style={styles.container}>
+        {/**
+         * Go ahead and delete ExpoLinksView and replace it with your content;
+         * we just wanted to provide you with some helpful links.
+         */}
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <Text>Minhas informações pessoais:</Text>
+
+          <View style={{ backgroundColor: "white" }}>
+            <Text>
+              Id: {this.state.data.id}, Nome: {this.state.data.name}, Telefone:{" "}
+              {this.state.data.phone}, Email: {this.state.data.email}, CPF /
+              CNPJ: {this.state.data.cpf_cnpj},
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
     );
   }
 }
