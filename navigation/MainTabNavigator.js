@@ -6,82 +6,120 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
+import HelpScreen from "../screens/HelpScreen";
+import DashboardScreen from "../screens/DashboardScreen";
+import ProvidersScreen from "../screens/ProvidersScreen";
+import BlogScreen from "../screens/BlogScreen";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
   default: {}
 });
 
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen
+
+// TAB DASHBOARD
+const DashboardStack = createStackNavigator({
+    Dashboard: DashboardScreen
   },
   config
 );
-
-HomeStack.navigationOptions = {
-  tabBarLabel: "Inicio",
+DashboardStack.navigationOptions = {
+  tabBarLabel: "Home",
+  tabBarOptions: {
+    activeTintColor: 'red',
+    inactiveTintColor: '#000',
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
-      }
+      name={Platform.OS === "ios" ? "ios-home" : "md-home"}
     />
   )
 };
+DashboardStack.path = "";
 
-HomeStack.path = "";
+// TAB DICAS/BLOG
+const BlogStack = createStackNavigator({
+  Blog: BlogScreen
+},
+config
+);
+BlogStack.navigationOptions = {
+tabBarLabel: "Dicas",
+tabBarOptions: {
+  activeTintColor: 'red',
+  inactiveTintColor: '#000',
+},
+tabBarIcon: ({ focused }) => (
+  <TabBarIcon
+    focused={focused}
+    name={Platform.OS === "ios" ? "ios-home" : "md-albums"}
+  />
+)
+};
+BlogStack.path = "";
 
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen
-  },
-  config
+// TAB PROVIDERS
+const ProviderStack = createStackNavigator({
+  Provider: ProvidersScreen
+},
+config
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: "Dashboard",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
+ProviderStack.navigationOptions = {
+tabBarLabel: "Parceiros",
+tabBarOptions: {
+  activeTintColor: 'red',
+  inactiveTintColor: '#000',
+},
+tabBarIcon: ({ focused }) => (
+  <TabBarIcon
+    focused={focused}
+    name={Platform.OS === "ios" ? "ios-options" : "md-briefcase"}
+  />
+)
 };
 
-LinksStack.path = "";
+ProviderStack.path = "";
 
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen
-  },
-  config
+
+// TAB SOBRE
+const HelpStack = createStackNavigator({
+  Help: HelpScreen
+},
+config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: "Perfil",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
-    />
-  )
+HelpStack.navigationOptions = {
+tabBarLabel: "Sobre",
+tabBarOptions: {
+  activeTintColor: 'red',
+  inactiveTintColor: '#000',
+},
+tabBarIcon: ({ focused }) => (
+  <TabBarIcon
+    focused={focused}
+    name={
+      Platform.OS === "ios"
+        ? `ios-information-circle${focused ? "" : "-outline"}`
+        : "md-information-circle"
+    }
+  />
+)
 };
 
-SettingsStack.path = "";
+HelpStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack
+  DashboardStack,
+  ProviderStack,
+  BlogStack,
+  HelpStack,
 });
 
 tabNavigator.path = "";
 
-export default tabNavigator;
+
+
+// export default tabNavigator
+export default tabNavigator
